@@ -23,6 +23,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class Video {
 
     @Id

@@ -17,22 +17,22 @@ public class VideosStepdefs {
     String level;
     List<VideoDTO> videoDTOS;
     @Autowired
-    VideoService videoService= new VideoService();
+    VideoService videoService = new VideoService();
 
     @When("I Call the service RetrieveVideosByTagAndLevel")
     public void i_ask_whether_it_s_Friday_yet() {
         Level levelObject;
-        if(level==null){
-            levelObject=null;
-        }else {
-            levelObject=Level.valueOf(level);
+        if (level == null) {
+            levelObject = null;
+        } else {
+            levelObject = Level.valueOf(level);
         }
         videoDTOS = videoService.retrieveVideosByTagAndLevel(tags, levelObject);
     }
 
     @Then("I should get {int} videos")
     public void i_should_be_told(int number) {
-       Assert.assertEquals(number,videoDTOS.size());
+        Assert.assertEquals(number, videoDTOS.size());
 
     }
 
@@ -44,8 +44,8 @@ public class VideosStepdefs {
 
     @Given("no level and no tags")
     public void noLevelAndNoTags() {
-        level=null;
-        tags=null;
+        level = null;
+        tags = null;
     }
 
     @Given("tags")
@@ -55,7 +55,7 @@ public class VideosStepdefs {
 
     @Then("I should get one {int} video")
     public void iShouldGetOneVideo(int number) {
-        Assert.assertEquals(number,videoDTOS.size());
+        Assert.assertEquals(number, videoDTOS.size());
     }
 
     @Given("level {string}")

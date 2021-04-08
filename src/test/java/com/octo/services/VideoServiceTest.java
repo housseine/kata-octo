@@ -5,12 +5,22 @@ import com.octo.domain.video.Video;
 import com.octo.dto.video.VideoDTO;
 import com.octo.mappers.VideoToVideoDTOMapper;
 import com.octo.repository.VideoRepository;
+import com.octo.repository.VideoSpecifications;
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.omg.CORBA.Any;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,49 +65,49 @@ public class VideoServiceTest {
 
     @Test
     public void retrieveVideoByTagsAndOrLevelWithNoTagsAndNoLevel_test() {
-        when(videoRepository.findAll()).thenReturn(list);
+        when(videoRepository.findAll(ArgumentMatchers.nullable(Specification.class ))).thenReturn(list);
         when(videoToVideoDTOMapper.convert(video)).thenReturn(videoDto);
 
         List<VideoDTO> resultVideoDtos = videoService.retrieveVideosByTagAndLevel(null, null);
 
-        assertEquals("EASY", resultVideoDtos.get(0).getLevel().name());
+        assertEquals(1, resultVideoDtos.size());
     }
 
     @Test
     public void retrieveVideoByTagsAndOrLevelWithNullTags_test() {
-        when(videoRepository.findDistinctByLevel(Level.EASY)).thenReturn(list);
+        when(videoRepository.findAll(ArgumentMatchers.isA(Specification.class ))).thenReturn(list);
         when(videoToVideoDTOMapper.convert(video)).thenReturn(videoDto);
 
         List<VideoDTO> resultVideoDtos = videoService.retrieveVideosByTagAndLevel(null, Level.EASY);
 
-        assertEquals("EASY", resultVideoDtos.get(0).getLevel().name());
+        assertEquals(1, resultVideoDtos.size());
     }
 
     @Test
     public void retrieveVideoByTagsAndOrLevelWithNullLevel_test_() {
-        when(videoRepository.findDistinctByTagsIn(tags)).thenReturn(list);
+        when(videoRepository.findAll(ArgumentMatchers.isA(Specification.class ))).thenReturn(list);
         when(videoToVideoDTOMapper.convert(video)).thenReturn(videoDto);
 
         List<VideoDTO> resultVideoDtos = videoService.retrieveVideosByTagAndLevel(tags, null);
 
-        assertEquals("EASY", resultVideoDtos.get(0).getLevel().name());
+        assertEquals(1, resultVideoDtos.size());
     }
     @Test
     public void retrieveVideoByTagsAndOrLevel_test() {
-        when(videoRepository.findDistinctByTagsInOrLevel(tags,Level.EASY)).thenReturn(list);
+        when(videoRepository.findAll(ArgumentMatchers.isA(Specification.class ))).thenReturn(list);
         when(videoToVideoDTOMapper.convert(video)).thenReturn(videoDto);
 
         List<VideoDTO> resultVideoDtos = videoService.retrieveVideosByTagAndLevel(tags, Level.EASY);
 
-        assertEquals("EASY", resultVideoDtos.get(0).getLevel().name());
+        assertEquals(1, resultVideoDtos.size());
     }
 
     @Test
     public void retrieveVideoByTagsAndOrLevelWithEmptyTags_test() {
-        when(videoRepository.findDistinctByLevel(Level.EASY)).thenReturn(list);
+        when(videoRepository.findAll(ArgumentMatchers.isA(Specification.class ))).thenReturn(list);
         when(videoToVideoDTOMapper.convert(video)).thenReturn(videoDto);
 
-        List<VideoDTO> resultVideoDtos = videoService.retrieveVideosByTagAndLevel(new ArrayList<>(), Level.EASY);
-        assertEquals("EASY", resultVideoDtos.get(0).getLevel().name());
+        List<VideoDTO> resultVideoDtos = videoService.retrieveVideosByTagAndLevel(null, Level.EASY);
+        assertEquals(1, resultVideoDtos.size());
     }
 }

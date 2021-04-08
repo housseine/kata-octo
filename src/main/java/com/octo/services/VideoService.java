@@ -9,6 +9,7 @@ import com.octo.repository.VideoRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.octo.repository.VideoSpecifications;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,15 +34,8 @@ public class VideoService {
         // 3 return the list
 
         List<Video> videos;
-        if ((tags == null || tags.isEmpty()) && level == null) {
-            videos = videoRepository.findAll();
-        } else if (tags == null || tags.isEmpty()) {
-            videos = videoRepository.findDistinctByLevel(level);
-        } else if (level == null) {
-            videos = videoRepository.findDistinctByTagsIn(tags);
-        } else {
-            videos = videoRepository.findDistinctByTagsInOrLevel(tags, level);
-        }
+        if (tags == null) tags = new ArrayList<>();
+        videos = videoRepository.findAll(VideoSpecifications.finVideoByLevelOrTags(level, tags));
         List<VideoDTO> videosDto = new ArrayList<>();
         videos.forEach(video -> videosDto.add(videoToVideoDTOMapper.convert(video)));
         return videosDto;

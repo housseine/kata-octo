@@ -9,7 +9,9 @@ import com.octo.services.VideoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+
 import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,6 @@ public class VideoController {
         LOGGER.info("Récupération des videos des cours par tags ou/et niveau");
         return videoService.retrieveVideosByTagAndLevel(tags, level);
     }
-
 
 
 }
