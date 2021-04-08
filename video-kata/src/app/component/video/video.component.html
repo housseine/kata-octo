@@ -1,0 +1,27 @@
+<mat-form-field class="example-chip-list">
+    <mat-label>Favorite tags</mat-label>
+    <mat-chip-list #chipList aria-label="tag selection">
+        <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
+            {{tag}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="New tag..." [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+</mat-form-field>
+
+<mat-form-field appearance="fill">
+    <mat-label>Level</mat-label>
+    <mat-select [(ngModel)]="selectedLevel">
+        <mat-option *ngFor="let level of levels | keyvalue" [value]="level.value">
+            {{level.value}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+<button (click)="save();">
+    Save
+</button>
+<mat-list role="list">
+    <mat-list-item *ngFor="let video of videoDTOs" role="listitem">{{video.title}}</mat-list-item>
+  </mat-list>
