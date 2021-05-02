@@ -1,0 +1,11 @@
+<div id="fee">
+    {{amount*100 | number: '2.3'}} %
+</div>
+
+<div id="amount">
+    {{amount | number: '9.2-2'}} {{currency}}
+</div>
+
+<div id="time">
+    {{timeOfTransaction | date: 'ww: yyyy MMMMM dd hh-mm-ss'}}
+</div>

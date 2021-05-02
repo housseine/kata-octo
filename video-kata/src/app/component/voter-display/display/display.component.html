@@ -1,0 +1,3 @@
+
+<voter-component [question]="question" [yesAnswer]="yesAnswer" [noAnswer]="noAnswer" (voteEvent)=captureAnswer($event)></voter-component>
+<div id="lastVote">{{lastAnswer}}</div>

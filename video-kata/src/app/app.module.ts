@@ -9,11 +9,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatChipsModule, MatIconModule, MatInputModule, MatListModule, MatOptionModule, MatSelectModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { TransactionDetailsComponent } from './component/transaction/transaction-details/transaction-details.component';
+import { DisplayComponent } from './component/voter-display/display/display.component';
+import { VoterComponent } from './component/voter-display/voter/voter.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VideoComponent
+    VideoComponent,
+    TransactionDetailsComponent,
+    DisplayComponent,
+    VoterComponent
   ],
   imports: [
     BrowserModule,

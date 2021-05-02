@@ -1,0 +1,6 @@
+resttemplate
+crudrepository findById
+@RestController
+validate business model: Validator
+
+^version "Compatible with version
